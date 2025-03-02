@@ -1,14 +1,24 @@
-# Use a base JDK image
-FROM eclipse-temurin:21-jdk
+# Use a Maven image to build the project
+FROM maven:3.9.6-eclipse-temurin-21 AS build
 
-# Set working directory
 WORKDIR /app
 
-# Copy JAR file from target folder
-COPY target/*.jar app.jar
+# Copy the project files
+COPY . .
 
-# Expose port (Spring Boot runs on 8080)
+# Build the project
+RUN mvn clean package -DskipTests
+
+# Use a lightweight JDK to run the app
+FROM eclipse-temurin:21-jdk
+
+WORKDIR /app
+
+# Copy the built JAR file from the previous stage
+COPY --from=build /app/target/*.jar app.jar
+
+# Expose port 8080
 EXPOSE 8080
 
-# Command to run the Spring Boot application
+# Run the application
 CMD ["java", "-jar", "app.jar"]
