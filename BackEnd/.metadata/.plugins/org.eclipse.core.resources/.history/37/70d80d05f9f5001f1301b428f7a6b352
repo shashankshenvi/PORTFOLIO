@@ -1,9 +1,0 @@
-package com.portfolio.controller;
-
-@CrossOrigin("*")
-@AllArgsConstructor
-@RestController
-@RequestMapping("/api/employees")
-public class MenuController {
-
-}
