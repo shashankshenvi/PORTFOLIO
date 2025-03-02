@@ -85,7 +85,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (resumeFile != null && !resumeFile.isEmpty()) {
             try {
                 String fileId = googleDriveService.uploadFile(resumeFile);
-                user.setResumePath(fileId);
             } catch (Exception e) {
                 throw new RuntimeException("Failed to upload resume", e);
             }
