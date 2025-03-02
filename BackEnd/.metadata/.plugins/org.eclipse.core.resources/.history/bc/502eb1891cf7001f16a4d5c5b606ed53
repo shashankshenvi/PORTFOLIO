@@ -1,0 +1,50 @@
+package com.portfolio.service;
+
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.portfolio.exception.ResourceNotFoundException;
+import com.portfolio.repository.SkillsRepository;
+import com.portfolio.vo.Skills;
+import com.portfolio.vo.UserDetails;
+
+public class SkillsServiceImpl implements SkillsService{
+
+	
+	private static final Logger logger =LoggerFactory.getLogger(SkillsServiceImpl.class);
+	
+	@Autowired
+	private SkillsRepository skillsRepository;
+	
+	@Override
+	public List<Skills> getAllSkills() {
+		return skillsRepository.findByIsActive('Y');
+	}
+
+	@Override
+	public Skills createSkill(Skills skill) {
+		return skillsRepository.save(skill);
+	}
+
+	@Override
+	public Skills getSkillById(Integer skillId) {
+		Skills skill = skillsRepository.findById(skillId).orElseThrow(() -> new ResourceNotFoundException("Skill not found"));
+		return skill;
+	}
+
+	@Override
+	public Skills updateSkill(Skills skill) {
+		UserDetails updatedMenu = userDetailsRepository.save(user);
+		return null;
+	}
+
+	@Override
+	public void deleteSkill(Skills skill) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

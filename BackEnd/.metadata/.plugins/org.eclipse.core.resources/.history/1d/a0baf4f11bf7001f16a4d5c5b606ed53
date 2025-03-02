@@ -1,0 +1,50 @@
+package com.portfolio.service;
+
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.portfolio.repository.UserDetailsRepository;
+import com.portfolio.vo.Skills;
+
+public class SkillsServiceImpl implements SkillsService{
+
+	
+	private static final Logger logger =LoggerFactory.getLogger(UserDetailsServiceImpl.class);
+	
+	@Autowired
+	private UserDetailsRepository userDetailsRepository;
+	
+	@Override
+	public List<Skills> getAllUserDetails() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Skills createUser(Skills skill) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Skills getUserById(Integer skillId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Skills updateUser(Skills skill) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void deleteUser(Skills skill) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

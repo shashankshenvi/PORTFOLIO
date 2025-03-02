@@ -1,0 +1,68 @@
+package com.portfolio.service;
+
+import com.google.api.services.drive.Drive;
+import com.google.api.services.drive.model.File;
+import com.google.api.services.drive.model.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.util.Collections;
+
+@Service
+public class GoogleDriveService {
+
+    private static final Logger logger = LoggerFactory.getLogger(GoogleDriveService.class);
+
+    private final Drive googleDrive;
+
+    // Injecting the pre-configured Drive bean
+    @Autowired
+    public GoogleDriveService(Drive googleDrive) {
+        this.googleDrive = googleDrive;
+    }
+
+    public String uploadFile(MultipartFile file) {
+        try {
+            logger.info("Uploading file: {}", file.getOriginalFilename());
+
+            // Create a new file metadata object
+            File fileMetadata = new File();
+            fileMetadata.setName(file.getOriginalFilename());
+            // Replace with actual folder ID
+            fileMetadata.setParents(Collections.singletonList("15iLZ1-j_3s30IBQbhw1tUacUPtvl3Pss"));
+
+            // Set up the upload stream content
+            var uploadStreamContent = new com.google.api.client.http.InputStreamContent(
+                    file.getContentType(), file.getInputStream());
+
+            // Upload the file to Google Drive
+            File uploadedFile = googleDrive.files().create(fileMetadata, uploadStreamContent)
+                    .setFields("id")
+                    .execute();
+
+            String fileId = uploadedFile.getId();  // Get the uploaded file ID
+            logger.info("File uploaded successfully. File ID: {}", fileId);
+
+            return fileId;  // Return the file ID after upload
+
+        } catch (IOException e) {
+            logger.error("File upload failed: {}", e.getMessage());
+            throw new RuntimeException("File upload to Google Drive failed.", e);
+        }
+    }
+
+    public void testConnection() {
+        try {
+            // Attempt to fetch the authenticated user's account details to check if the connection is successful
+            User user = googleDrive.about().get().setFields("user").execute();
+            logger.info("Google Drive connected successfully. User: {}", user.getDisplayName());
+        } catch (IOException e) {
+            logger.error("Google Drive connection failed: {}", e.getMessage());
+            throw new RuntimeException("Failed to connect to Google Drive", e);
+        }
+    }
+}

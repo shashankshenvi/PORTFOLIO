@@ -1,0 +1,20 @@
+package com.portfolio.service;
+
+import java.util.List;
+
+import com.portfolio.vo.UserDetails;
+
+public interface UserDetailsService {
+	
+	List<UserDetails> getAllUserDetails();
+
+	UserDetails createUser(UserDetails user);
+	
+	UserDetails getUserById(Integer userId);
+	
+	UserDetails updateUser(UserDetails user);
+	
+	void (UserDetails user);
+	
+
+}

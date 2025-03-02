@@ -1,0 +1,47 @@
+package com.portfolio.controller;
+
+import com.portfolio.service.UserDetailsService;
+import com.portfolio.vo.UserDetails;
+import com.portfolio.service.GoogleDriveService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+
+@RestController
+@RequestMapping("/api/users")
+public class UserDetailsController {
+
+    @Autowired
+    private UserDetailsService userService;
+
+    @Autowired
+    private GoogleDriveService googleDriveService;
+
+    @PostMapping("/uploadResume/{userId}")
+    public ResponseEntity<String> uploadResume(@RequestParam("file") MultipartFile file, @PathVariable("userId") Integer userId) {
+        try {
+            String filePath = saveFileToLocal(file);
+            String fileId = googleDriveService.uploadFile(filePath);
+
+            UserDetails user = userService.getUserById(userId);
+            user.setResumeFilePath(fileId);  // Update with Google Drive file ID
+            userService.updateUser(user);
+
+            return ResponseEntity.ok("Resume uploaded successfully!");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error uploading resume: " + e.getMessage());
+        }
+    }
+
+    private String saveFileToLocal(MultipartFile file) throws IOException {
+        String filePath = "/tmp/" + file.getOriginalFilename();  // Adjust the local path
+        file.transferTo(new java.io.File(filePath));
+        return filePath;
+    }
+
+    // Other endpoints like createUser, getUser, etc.
+}

@@ -1,0 +1,16 @@
+import org.springframework.boot.web.servlet.MultipartConfigFactory;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import javax.servlet.MultipartConfigElement;
+
+@Configuration
+public class MultipartConfig {
+
+    @Bean
+    public MultipartConfigElement multipartConfigElement() {
+        MultipartConfigFactory factory = new MultipartConfigFactory();
+        factory.setMaxFileSize("5MB"); // Maximum file size
+        factory.setMaxRequestSize("5MB"); // Maximum request size
+        return factory.createMultipartConfig();
+    }
+}

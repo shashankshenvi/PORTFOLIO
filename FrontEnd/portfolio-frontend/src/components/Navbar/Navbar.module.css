@@ -1,0 +1,112 @@
+@import "../../vars.css";
+
+.navbar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 61px;
+  z-index: 2;
+  margin: 0 10%;
+}
+
+.title {
+  font-size: 34px;
+  font-weight: 700;
+  text-decoration: none;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  background: linear-gradient(45deg, #0ff0fc, #ff73fa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: transform 0.3s ease-in-out;
+}
+
+.title:hover {
+  transform: scale(1.1);
+}
+
+.menuBtn {
+  display: none;
+  cursor: pointer;
+}
+
+.menu {
+  display: flex;
+}
+
+/* 🌟 New Menu Box Color */
+.menuItems {
+  display: flex;
+  gap: 40px;
+  list-style: none;
+}
+
+.menuItem {
+  position: relative;
+  perspective: 1000px;
+}
+
+/* Default Menu Button */
+.menuItem a {
+  font-size: 22px;
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 12px 20px;
+  background: #19376db3; /* Semi-transparent Deep Blue */
+  border-radius: 12px;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.4),
+    -5px -5px 15px rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  display: inline-block;
+  text-align: center;
+}
+
+/* 3D Hover Effect */
+.menuItem a:hover {
+  transform: perspective(500px) rotateX(10deg);
+  background: #1e4a8a; /* A Slightly Darker Blue */
+  box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.5),
+    -8px -8px 20px rgba(255, 255, 255, 0.2);
+}
+
+/* Responsive Navbar */
+@media screen and (max-width: 830px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .menu {
+    position: absolute;
+    right: 0;
+    margin-right: 10%;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 15px;
+    z-index: 3;
+  }
+
+  .menuBtn {
+    display: block;
+    cursor: pointer;
+  }
+
+  .menuItems {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    border-radius: 10px;
+    background: #19376db3;
+    padding: 24px 33px;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.25);
+  }
+
+  .menuOpen {
+    display: flex;
+    z-index: 1;
+  }
+}

@@ -1,0 +1,65 @@
+package com.portfolio.service;
+
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.portfolio.exception.ResourceNotFoundException;
+import com.portfolio.repository.UserDetailsRepository;
+import com.portfolio.vo.UserDetails;
+
+@Service
+public class UserDetailsServiceImpl implements UserDetailsService {
+
+    private static final Logger logger = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
+
+    @Autowired
+    private UserDetailsRepository userDetailsRepository;
+
+    @Override
+    public List<UserDetails> getAllUserDetails() {
+        return userDetailsRepository.findByIsActive('Y');
+    }
+
+    @Override
+    public UserDetails createUser(UserDetails user) {
+        // Save the UserDetails first
+        UserDetails savedUser = userDetailsRepository.save(user);
+
+        // Ensure the UserInstance objects are saved and linked correctly
+        if (user.getContacts() != null) {
+            user.getContacts().forEach(contact -> contact.setUser(savedUser));
+        }
+
+        return savedUser;
+    }
+
+    @Override
+    public UserDetails getUserById(Integer userId) {
+        return userDetailsRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+    }
+
+    @Override
+    public UserDetails updateUser(UserDetails user) {
+        // Update the UserDetails and related contacts (UserInstance)
+        UserDetails updatedUser = userDetailsRepository.save(user);
+
+        if (user.getContacts() != null) {
+            user.getContacts().forEach(contact -> contact.setUser(updatedUser));
+        }
+
+        return updatedUser;
+    }
+
+    @Override
+    public void deleteUser(UserDetails user) {
+        userDetailsRepository.findById(user.getUserId()).ifPresent(existingUser -> {
+            existingUser.setIsActive('N');
+            userDetailsRepository.save(existingUser);
+        });
+    }
+}

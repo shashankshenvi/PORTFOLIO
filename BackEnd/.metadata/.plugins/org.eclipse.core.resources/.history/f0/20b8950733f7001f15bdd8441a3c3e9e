@@ -1,0 +1,14 @@
+package com.portfolio.repository;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.portfolio.vo.UserDetails;
+import com.portfolio.vo.UserInstance;
+
+public interface UserInstanceRepository extends JpaRepository<UserDetails,Integer>{
+	
+	List<UserInstance> findByUser_UserId(Integer userId);
+
+}

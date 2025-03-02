@@ -1,0 +1,51 @@
+package com.portfolio.service;
+
+import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
+import com.google.api.services.drive.Drive;
+import com.google.api.services.drive.model.File;
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import org.springframework.stereotype.Service;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+
+@Service
+public class GoogleDriveService {
+
+    private static final String CLIENT_SECRET_FILE = "classpath:credentials.json";  // Your Google credentials file
+    private static final String SCOPES = "https://www.googleapis.com/auth/drive.file"; // Google Drive API scope
+
+    public String uploadFile(String filePath) throws Exception {
+        Drive driveService = getDriveService();
+
+        // Create the file metadata
+        File fileMetadata = new File();
+        fileMetadata.setName("resume.pdf");  // Change the name if necessary
+
+        // Read the file
+        java.io.File file = new java.io.File(filePath);
+        FileContent mediaContent = new FileContent("application/pdf", file);
+
+        // Upload the file
+        File uploadedFile = driveService.files().create(fileMetadata, mediaContent)
+                .setFields("id")
+                .execute();
+
+        return uploadedFile.getId();  // Return the file ID from Google Drive
+    }
+
+    private Drive getDriveService() throws IOException {
+        HttpTransport httpTransport = new NetHttpTransport();
+        JsonFactory jsonFactory = new com.google.api.client.json.JsonFactory();
+
+        GoogleCredential credential = GoogleCredential.fromStream(new FileInputStream(CLIENT_SECRET_FILE))
+                .createScoped(SCOPES);
+
+        return new Drive.Builder(httpTransport, jsonFactory, credential)
+                .setApplicationName("PortfolioApp")
+                .build();
+    }
+}

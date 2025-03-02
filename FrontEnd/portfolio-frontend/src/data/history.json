@@ -1,0 +1,18 @@
+[
+  {
+    "role": "System Engineer",
+    "organisation": "Tata Consultancy Services",
+    "startDate": "October, 2022",
+    "endDate": "Present",
+    "experiences": [
+      "Designed and implemented a user-friendly Dynamic Returns portal screens allowing User to create customizable data submission templates. Users can submit data via file uploads or screen submission.",
+      "Developed server-side logic using Java frameworks (e.g., Spring, Hibernate) to manage application requests and responses effectively.",
+      "Worked with MySQL to design, implement, and optimize database schemas, creating complex SQL and HQL queries for data retrieval and manipulation.",
+      "Developed and maintained RESTful APIs to facilitate seamless communication between the frontend and backend.",
+      "Analysed and optimized application performance through code profiling, enhancing response times. Implemented security measures, including data encryption and user authentication.",
+      "Developed a JAR file to automate email notifications for users submitting issues or defects through the IncidentManagement module.",
+      "Deployed applications in production environments and monitored performance, making necessary adjustments for optimization."
+    ],
+    "imageSrc": "history/tata-logo.svg"
+  }
+]

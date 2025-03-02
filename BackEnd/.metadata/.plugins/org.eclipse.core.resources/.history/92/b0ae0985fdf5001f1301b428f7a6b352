@@ -1,0 +1,28 @@
+package com.portfolio.service;
+
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.portfolio.repository.MenuRepository;
+import com.portfolio.vo.Menu;
+
+@Service
+public class MenuService {
+	
+	private static final Logger logger =LoggerFactory.getLogger(MenuService.class);
+	@Autowired
+	private MenuRepository menuRepository;
+	
+	public List<Menu> getAllMenus(){
+		return menuRepository.findAll();
+	}
+
+	public Menu createMenu(Menu menu) {
+		System.out.println(menu.toString());
+		return menuRepository.save(menu);
+	}
+}

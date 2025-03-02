@@ -1,0 +1,112 @@
+@import "../../vars.css";
+
+/* Main Container */
+.container {
+  position: relative;
+  background-color: transparent;
+  padding: 60px 10%;
+  z-index: 1;
+}
+
+/* About Section Title - Aligned Left */
+.title {
+  color: var(--color-text);
+  font-size: 42px;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-shadow: 4px 4px 10px rgba(255, 255, 255, 0.3);
+  margin-bottom: 30px;
+  text-align: left; /* Changed from center to left */
+}
+
+/* About Content */
+.content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 50px;
+  justify-content: space-between;
+}
+
+/* About Image */
+.aboutImage {
+  width: 250px;
+  border-radius: 10px;
+  box-shadow: 4px 4px 15px rgba(255, 255, 255, 0.2);
+}
+
+/* About Details */
+.aboutDetails {
+  flex: 1;
+}
+
+/* Section Heading */
+.aboutHeading {
+  font-size: 30px;
+  font-weight: bold;
+  color: var(--color-text);
+  text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.3);
+  margin-bottom: 15px;
+}
+
+/* About Items - List Style */
+.aboutItems {
+  color: var(--color-text);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* About Item - New Design */
+.aboutItem {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  list-style: none;
+  gap: 15px;
+}
+
+.aboutItem p {
+  font-size: 20px;
+  line-height: 1.5;
+  color: #f1f1f1;
+}
+
+/* Server Icon Moved */
+.serverIcon {
+  position: absolute;
+  bottom: -40px;
+  right: -20px;
+}
+
+.serverIcon img {
+  width: 60px;
+  height: auto;
+  opacity: 0.8;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 830px) {
+  .content {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .aboutImage {
+    display: none;
+  }
+
+  .aboutItem {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .serverIcon {
+    position: relative;
+    right: 0;
+    bottom: 0;
+    margin-top: 20px;
+    align-self: center;
+  }
+}

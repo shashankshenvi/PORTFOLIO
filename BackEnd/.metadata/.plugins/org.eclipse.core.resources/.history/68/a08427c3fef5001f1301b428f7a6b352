@@ -1,0 +1,10 @@
+package com.portfolio.service;
+
+import com.portfolio.vo.Menu;
+
+public interface MenuService {
+	
+	
+	List<Menu> getAllMenus();
+
+}

@@ -1,0 +1,9 @@
+package com.portfolio.controller;
+
+//@CrossOrigin("*")
+@AllArgsConstructor
+@RestController
+@RequestMapping("/api/menus")
+public class MenuController {
+
+}

@@ -1,0 +1,30 @@
+package com.portfolio.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.portfolio.service.MenuService;
+import com.portfolio.vo.Menu;
+
+import lombok.AllArgsConstructor;
+
+//@CrossOrigin("*")
+@RestController
+@RequestMapping("/api/menus")
+public class MenuController {
+	
+	@Autowired
+	private MenuService menuService;
+	
+@GetMapping
+public List<Menu> getAllMenus(){
+	return menuService.getAllMenus();
+}
+	
+	
+
+}

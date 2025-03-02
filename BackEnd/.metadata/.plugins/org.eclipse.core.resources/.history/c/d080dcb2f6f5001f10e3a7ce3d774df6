@@ -1,0 +1,10 @@
+package com.portfolio.vo;
+
+import jakarta.persistence.Column;
+
+public class Menu {
+	
+	@Column(name="MENU_ID")
+	private Integer menuId;
+
+}

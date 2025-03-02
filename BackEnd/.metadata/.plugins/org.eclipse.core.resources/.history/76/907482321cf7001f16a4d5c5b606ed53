@@ -1,0 +1,23 @@
+package com.portfolio.service;
+
+import java.util.List;
+
+import com.portfolio.vo.Skills;
+
+
+public interface SkillsService {
+	
+	List<Skills> getAllUserDetails();
+
+	Skills createUser(Skills skill);
+	
+	Skills getUserById(Integer skillId);
+	
+	Skills updateUser(Skills skill);
+	
+	void deleteUser(Skills skill);
+	
+
+
+
+}

@@ -1,0 +1,11 @@
+package com.portfolio.service;
+
+import org.springframework.stereotype.Service;
+
+@Service
+public class MenuService {
+	
+	@Autowired
+	private MenuRepository menuRepository;
+
+}
