@@ -4,14 +4,14 @@ FROM maven:3.9.6-eclipse-temurin-21 AS build
 # Set working directory inside the container
 WORKDIR /app
 
-# Copy the pom.xml separately (to take advantage of Docker caching)
-COPY BackEnd/portfolio/pom.xml .
+# Copy the pom.xml separately (for better Docker caching)
+COPY pom.xml .
 
-# Download dependencies (this speeds up the build process)
+# Download dependencies first
 RUN mvn dependency:go-offline -B
 
-# Now copy the entire project
-COPY BackEnd/portfolio/ .
+# Copy the entire project
+COPY . .
 
 # Build the project
 RUN mvn clean package -DskipTests
