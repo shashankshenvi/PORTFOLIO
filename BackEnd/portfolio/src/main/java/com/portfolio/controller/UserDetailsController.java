@@ -37,10 +37,9 @@ public class UserDetailsController {
         return ResponseEntity.ok(userService.getUserById(userId));
     }
 
-    @PutMapping(consumes = {"multipart/form-data"})
-    public ResponseEntity<UserDetails> updateUser(@RequestPart("user") UserDetails user, @RequestPart(value = "resume", required = false) MultipartFile resumeFile) {
-        
-        return new ResponseEntity<>(userService.updateUser(user, resumeFile), HttpStatus.OK);
+    @PutMapping
+    public ResponseEntity<UserDetails> updateUser(@RequestBody UserDetails user) {
+        return new ResponseEntity<>(userService.updateUser(user), HttpStatus.OK);
     }
 
     @DeleteMapping("{userId}")

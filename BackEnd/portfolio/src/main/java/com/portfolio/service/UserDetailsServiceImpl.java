@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,9 +23,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     private UserDetailsRepository userDetailsRepository;
-
-    @Autowired
-    private GoogleDriveService googleDriveService;
 
     @Override
     public List<UserDetailsDTO> getAllUserDetails() {
@@ -65,14 +61,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     @Override
-    public UserDetails createUser(UserDetails user) {
+    public void createUser(UserDetails user) {
         user.setIsActive('Y');
         if (user.getContacts() != null) {
             for (UserInstance contact : user.getContacts()) {
                 contact.setUser(user);  
             }
         }
-        return userDetailsRepository.save(user);
+        userDetailsRepository.save(user);
     }
     @Override
     public UserDetails getUserById(Integer userId) {
@@ -81,14 +77,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     @Override
-    public UserDetails updateUser(UserDetails user, MultipartFile resumeFile) {
-        if (resumeFile != null && !resumeFile.isEmpty()) {
-            try {
-                String fileId = googleDriveService.uploadFile(resumeFile);
-            } catch (Exception e) {
-                throw new RuntimeException("Failed to upload resume", e);
-            }
-        }
+    public UserDetails updateUser(UserDetails user) {
+        user.setIsActive('Y');
         return userDetailsRepository.save(user);
     }
 
@@ -99,4 +89,5 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             userDetailsRepository.save(existingUser);
         });
     }
+
 }
